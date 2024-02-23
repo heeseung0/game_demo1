@@ -24,6 +24,10 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation jumpingAnimation;
   late final SpriteAnimation fallingAnimation;
 
+  // 접근 제한자 문제 같음
+  bool isLeftKeyPressed = false;
+  bool isRightKeyPressed = false;
+  // --------------------
   final double _gravity = 9.8;
   final double _jumpForce = 460;
   final double _terminalVelocity = 300;
@@ -64,13 +68,10 @@ class Player extends SpriteAnimationGroupComponent
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     horizontalMovement = 0;
-    final isLeftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) ||
+    isLeftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) ||
         keysPressed.contains(LogicalKeyboardKey.arrowLeft);
-    final isRightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) ||
+    isRightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) ||
         keysPressed.contains(LogicalKeyboardKey.arrowRight);
-
-    horizontalMovement += isLeftKeyPressed ? -1 : 0;
-    horizontalMovement += isRightKeyPressed ? 1 : 0;
 
     hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
 
@@ -131,6 +132,8 @@ class Player extends SpriteAnimationGroupComponent
     if (hasJumped && isOnGround) _playerJump(dt);
 
     // if (velocity.y > _gravity) isOnGround = false; // optional
+    horizontalMovement += isLeftKeyPressed ? -1 : 0;
+    horizontalMovement += isRightKeyPressed ? 1 : 0;
 
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;

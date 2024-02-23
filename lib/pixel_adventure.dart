@@ -9,7 +9,7 @@ import 'package:game_demo1/components/player.dart';
 import 'package:game_demo1/components/level.dart';
 
 class PixelAdventure extends FlameGame
-  with HasKeyboardHandlerComponents, DragCallbacks{
+    with HasKeyboardHandlerComponents, DragCallbacks {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
   late final CameraComponent cam;
@@ -17,9 +17,8 @@ class PixelAdventure extends FlameGame
   late JoystickComponent joystick;
   bool showJoystick = true;
 
-
   @override
-  FutureOr<void> onLoad() async{
+  FutureOr<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
 
@@ -38,7 +37,7 @@ class PixelAdventure extends FlameGame
 
     addAll([cam, world]);
 
-    if(showJoystick){
+    if (showJoystick) {
       addJoystick();
     }
 
@@ -47,14 +46,13 @@ class PixelAdventure extends FlameGame
 
   @override
   void update(double dt) {
-    if(showJoystick){
+    if (showJoystick) {
       updateJoystick();
     }
     super.update(dt);
   }
 
-
-  void addJoystick(){
+  void addJoystick() {
     joystick = JoystickComponent(
       priority: 99,
       knob: SpriteComponent(
@@ -73,8 +71,8 @@ class PixelAdventure extends FlameGame
     add(joystick);
   }
 
-  void updateJoystick(){
-    switch(joystick.direction){
+  void updateJoystick() {
+    switch (joystick.direction) {
       case JoystickDirection.left:
       case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
@@ -84,7 +82,7 @@ class PixelAdventure extends FlameGame
       case JoystickDirection.upRight:
       case JoystickDirection.downRight:
         player.horizontalMovement = 1;
-        break;  
+        break;
       default:
         player.horizontalMovement = 0;
         break;
